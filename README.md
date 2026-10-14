@@ -9,6 +9,50 @@ out-of-sample tests.
 13 coins, `strategy_v3.py`). Paper trading on Hyperliquid data started on 2026-10-13. This is
 not financial advice.
 
+## Results at a glance
+
+![Holdout year: strategy vs holding](results/holdout.png)
+
+The chart is the one-year holdout (Oct 2025 to Oct 2026): data I locked away during
+development and ran exactly once. The market fell about 26%; the strategy sat mostly in cash
+and finished flat.
+
+| Test | Strategy | Holding |
+|---|---|---|
+| Holdout year, BTC/ETH/SOL (run once) | +0.3%, max DD -3.5% | BTC -26.5%, max DD -48.9% |
+| 10 coins never used in development, 2019-2025 | Sharpe 1.32, max DD -13.5% | Sharpe 1.03, max DD -44.6% |
+| Same 10 coins, holdout year | -3.5%, max DD -4.9% | -19.9%, max DD -40.5% |
+| Final v3, all 13 coins, 2019-2025 | Sharpe 1.34, vol 32%, max DD -35% | |
+
+All figures are backtests after fees, slippage and funding, except where marked as the holdout.
+On the unseen coins, the strategy was positive on 9 of 10 and had a smaller drawdown than
+holding on all 10. My realistic Sharpe estimate is about 1.3.
+
+## What I learned
+
+1. **Optimising made it worse.** Re-picking the "best" settings each year using past data
+   scored lower than a fixed blend I committed to upfront (Sharpe 1.00 vs 1.22). Choosing the
+   in-sample winner was chasing noise, so I froze the design and stopped tuning.
+2. **The edge is drawdown control, not beating buy-and-hold.** Risk-adjusted returns roughly
+   match holding on a single coin, but drawdowns are much smaller. Combining coins lifts the
+   Sharpe above holding.
+3. **Check the data, not the story.** An early diagnosis of why v1 underperformed was wrong;
+   the position data showed the opposite, and fixing the real cause gave v2.
+4. **Shorting didn't pay.** Long/short was worse than long/flat at every lookback I tested.
+5. **The strongest evidence came from coins I never designed on**, not from more tuning on the
+   original three.
+
+## Limitations
+
+- **Survivorship bias:** all 13 coins are still large today, which flatters the results.
+- **Short exchange history:** Hyperliquid only serves the last 5000 candles, so signal research
+  used Binance spot prices and Hyperliquid data was used for funding and the final checks.
+- **Multiple testing:** I tried about 36 variants on the 2017-2025 data. Every one is counted
+  in [JOURNAL.md](JOURNAL.md).
+- **Backtest vs live:** fills assume the daily close. The paper record will show how much that matters.
+- **Weak recent years:** 2024-2025 were weaker than earlier years, which may mean crypto trends
+  are getting less clean.
+
 ## Paper trading
 
 ```
@@ -54,3 +98,5 @@ interval, so newly downloaded 4h data will cover a later window than my original
 I record every experiment in [JOURNAL.md](JOURNAL.md): what I tested, the key numbers, the
 decisions I made and what went wrong. I also keep count of how many strategy variants I've
 tried, so the overfitting risk can be judged.
+
+I handled the research design, ideas and validation; Claude wrote and ran the code.
