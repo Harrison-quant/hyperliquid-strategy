@@ -5,8 +5,21 @@ The signal blends time-series momentum across several lookbacks, positions are l
 and sized by inverse volatility, and I check every result with walk-forward and
 out-of-sample tests.
 
-**Status: work in progress.** I've finished the research and backtesting; I haven't started
-paper trading yet. This is not financial advice.
+**Status: paper trading.** I've finished the research and frozen the final version (v3 on
+13 coins, `strategy_v3.py`). Paper trading on Hyperliquid data started on 2026-10-13. This is
+not financial advice.
+
+## Paper trading
+
+```
+python paper_trade.py
+```
+
+Run it once a day, any time after 00:00 UTC, when Hyperliquid's daily candle closes. Each run downloads the
+latest HL prices and funding, computes the v3 targets, simulates fills at the close with fees
+and slippage, and appends to `paper/daily_log.csv` (one row per day: equity, P&L, positions)
+and `paper/fills.csv` (one row per trade). Missed days are caught up; running it twice in a
+day does nothing.
 
 ## Rebuilding the data
 
@@ -24,6 +37,8 @@ interval, so newly downloaded 4h data will cover a later window than my original
 
 ## Code
 
+- `strategy_v3.py`: the frozen final strategy settings
+- `paper_trade.py`: daily paper trader; logs in `paper/`
 - `backtest.py`: the core engine (signal, sizing, backtest, stats)
 - `holdout.py`, `v2_study.py`, `v3_sizing.py`, `universe_study.py`: individual studies
 - `results/`: text reports and charts

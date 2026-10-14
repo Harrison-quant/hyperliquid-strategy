@@ -156,3 +156,39 @@ All results are backtests unless marked otherwise. Fees, slippage and funding ar
 4. Exchange history limits (5000 candles) forced a two-source data design.
 5. Practical constraints like order minimums matter before going live.
 6. Working on unseen coins was the strongest evidence against overfitting.
+
+## 2026-10-14 - Froze v3 on 13 coins; started paper trading
+
+**Did**
+- Froze v3 on all 13 coins as the final research version (strategy_v3.py). The settings are exactly
+  the ones from research; the file also checks that the inherited backtest settings (30% vol target,
+  2x cap, 60-day correlations, fees) haven't been edited.
+- Built a daily paper trader (paper_trade.py). Each run downloads the latest HL daily candles and
+  hourly funding, computes the v3 targets, marks the paper positions to the close, trades where the
+  band says so, fills at the close +/- 0.03% slippage with the 0.045% taker fee, and appends to
+  paper/daily_log.csv and paper/fills.csv.
+- Unlike the backtest, the paper account holds coin quantities, so weights drift between trades,
+  as they would in a real account. Fills under HL's ~$10 minimum are flagged, not skipped.
+
+**Key numbers**
+- Freeze check: the frozen file reproduces the research result exactly (Binance, 2019 to holdout:
+  CAGR 45.8%, vol 32.1%, Sharpe 1.34, max DD -35.3%, turnover 24.3x/yr).
+- Engine check, HL data 2024-01-02 to 2025-10-13 (pre-holdout): paper engine vs backtest engine on
+  the same targets, Sharpe 1.13 vs 1.13, CAGR 35.9% vs 36.2%, max DD -24.4% vs -24.5%, daily return
+  correlation 0.997, about 780 fills/yr vs 800. The gap is the weight drift.
+- First paper day, 2026-10-13: started flat with $10,000 and bought 7 coins (BTC, SOL, BNB, LINK,
+  AVAX, LTC, DOT) at 0.31x gross; costs $2.32; equity $9,997.68. The strategy scaler is at its 3x cap.
+
+**Decisions**
+- I chose 13 coins over 3, for the reason in the out-of-universe entry: picking 3 because it scored
+  higher would repeat the v1 mistake.
+- Paper equity is $10,000, so the 2% trade floor is about $200 and the $10 minimum shouldn't bind.
+  With a much smaller live account it would.
+- No new variants: the engine check compares two implementations of the same strategy and chose
+  nothing. The variant count stays at about 36.
+
+**Caveats**
+- The scaler sitting at its 3x cap is the known v3 weakness: after calm periods it levers up and
+  can overshoot the 30% vol target.
+- Paper fills assume I trade exactly at the daily close. In reality I'd trade some time after it,
+  at a slightly different price.

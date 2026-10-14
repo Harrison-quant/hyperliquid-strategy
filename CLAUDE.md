@@ -34,15 +34,23 @@ I bring the maths, market ideas and judgement; Claude writes and runs the code.
   unseen coins: Sharpe > 0 on 9/10, beats hold on Sharpe only 4/10 but on MaxDD 10/10. 10-coin
   portfolio Sharpe 1.32 (MaxDD -13.5%) vs always-long 1.03 (-44.6%). Holdout year: -3.5% vs -19.9%.
   v3 on 13 coins: Sharpe 1.34, vol 32%, MaxDD -35% (vs 1.48 on 3 coins). I treat ~1.3 as the honest estimate.
+- FROZEN 2026-10-14: v3 on all 13 coins is the final research version (strategy_v3.py; asserts the
+  inherited backtest.py settings). Any change is a new variant. Paper trading (paper_trade.py) started
+  on day 2026-10-13 with $10,000 paper equity. Paper engine holds coin quantities (weights drift);
+  pre-holdout replay vs backtest engine: daily return corr 0.997, Sharpe 1.13 both.
 
 ## Files
+- strategy_v3.py: frozen v3 settings and targets(); paper_trade.py: daily paper trader, logs in paper/
+  (daily_log.csv, fills.csv; HL caches in data/paper_*.csv)
 - backtest.py: core engine (load, signal, base_weights, run, run_target, scale_to_target, stats, deflated_sharpe)
 - holdout.py, v2_study.py, v3_sizing.py, universe_study.py
 - results/: text reports and charts
 
 ## Next steps
 1. DONE: fetch_universe.py and universe_study.py (see Strategy history).
-2. Decide my paper-trading universe (3 vs 13 coins), freeze v3, build a daily paper-trading script on HL data.
+2. DONE: froze v3 on 13 coins; built paper_trade.py.
+3. Run paper_trade.py daily after 00:00 UTC (10:00 Brisbane). Review after ~3 months against the
+   backtest's expectations; don't change anything based on short paper results.
    Live sizing note: HL minimum order ~$10, so small accounts can't place many rebalance trades.
 
 Later projects: flash-loan arbitrage, then mempool watcher/sniper.
