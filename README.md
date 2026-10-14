@@ -19,7 +19,12 @@ Run it once a day, any time after 00:00 UTC, when Hyperliquid's daily candle clo
 latest HL prices and funding, computes the v3 targets, simulates fills at the close with fees
 and slippage, and appends to `paper/daily_log.csv` (one row per day: equity, P&L, positions)
 and `paper/fills.csv` (one row per trade). Missed days are caught up; running it twice in a
-day does nothing.
+day does nothing. Each daily row records `run_time` (when it was computed, UTC) and
+`catch_up` (True if the day was processed after a newer candle had already closed).
+
+A Windows scheduled task runs `run_paper.py` every day at 10:30 Brisbane (00:30 UTC): it runs
+the paper trader and commits and pushes the two log files as `paper: <date>`, so the paper
+record is timestamped publicly as it happens.
 
 ## Rebuilding the data
 
@@ -39,6 +44,7 @@ interval, so newly downloaded 4h data will cover a later window than my original
 
 - `strategy_v3.py`: the frozen final strategy settings
 - `paper_trade.py`: daily paper trader; logs in `paper/`
+- `run_paper.py`: daily scheduled wrapper (run paper trader, commit and push logs)
 - `backtest.py`: the core engine (signal, sizing, backtest, stats)
 - `holdout.py`, `v2_study.py`, `v3_sizing.py`, `universe_study.py`: individual studies
 - `results/`: text reports and charts

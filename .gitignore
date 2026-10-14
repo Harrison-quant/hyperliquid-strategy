@@ -22,3 +22,6 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Local output of scheduled paper runs
+paper/run_log.txt

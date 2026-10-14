@@ -41,7 +41,9 @@ I bring the maths, market ideas and judgement; Claude writes and runs the code.
 
 ## Files
 - strategy_v3.py: frozen v3 settings and targets(); paper_trade.py: daily paper trader, logs in paper/
-  (daily_log.csv, fills.csv; HL caches in data/paper_*.csv)
+  (daily_log.csv, fills.csv; HL caches in data/paper_*.csv). daily_log has run_time (UTC) and catch_up.
+- run_paper.py: run by Windows task "HL paper trade" daily 10:30 Brisbane via pythonw; runs paper_trade.py,
+  commits only paper/daily_log.csv + paper/fills.csv as "paper: <date>", pushes. Output in paper/run_log.txt (ignored).
 - backtest.py: core engine (load, signal, base_weights, run, run_target, scale_to_target, stats, deflated_sharpe)
 - holdout.py, v2_study.py, v3_sizing.py, universe_study.py
 - results/: text reports and charts

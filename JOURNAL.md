@@ -192,3 +192,28 @@ All results are backtests unless marked otherwise. Fees, slippage and funding ar
   can overshoot the 30% vol target.
 - Paper fills assume I trade exactly at the daily close. In reality I'd trade some time after it,
   at a slightly different price.
+
+## 2026-10-14 - Paper trading: timestamps, catch-up flag, daily automation
+
+**Did**
+- Added two columns to paper/daily_log.csv: run_time (when the row was computed, UTC) and catch_up
+  (True if the day was processed after a newer daily candle had already closed).
+- Backfilled the first row (2026-10-13): run_time 2026-10-14T05:04:11Z, taken from the time the
+  log file was written; catch_up False. Its other values are unchanged.
+- The paper trader now runs automatically every day at 00:30 UTC (10:30 Brisbane), and each day's
+  log rows are committed and pushed as "paper: <date>".
+
+**Why it matters**
+- The paper fills assume I trade at the daily close. A day processed late (catch_up True) used
+  that close too, even though in reality I couldn't have traded at it any more. Flagging these days
+  means I can later check whether paper results depend on them, or exclude them.
+- Pushing the log every day timestamps the paper record publicly as it happens, so it can't be
+  quietly rewritten afterwards. That makes it a credible out-of-sample record.
+
+**Checks**
+- Catch-up test in a scratch copy: after pretending the last logged day was 2026-10-11, one run
+  processed 2026-10-12 (catch_up True) and 2026-10-13 (catch_up False), committed only the two log
+  files and pushed. A second run did nothing.
+
+**Decisions**
+- No strategy changes; the variant count stays at about 36.

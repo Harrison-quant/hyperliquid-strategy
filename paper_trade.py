@@ -12,6 +12,8 @@ What one run does
    c) fills at the close +/- 0.03% slippage and pays the 0.045% taker fee.
 4. Appends one row per day to paper/daily_log.csv and one row per fill to paper/fills.csv.
    The last row of daily_log.csv is the account state for the next run.
+   run_time is when the row was computed (UTC). catch_up is True when the day was processed
+   late, i.e. a newer daily candle had already closed by the time the row was computed.
 
 Positions are held as coin quantities, like a real account, so weights drift between
 trades. The backtest instead held weights constant (free daily rebalancing), so paper
@@ -165,11 +167,16 @@ def main():
         row, fills, qty, new_eq = step(d, equity, qty, closes.loc[d - DAY], closes.loc[d],
                                        funding.loc[d], target.loc[d])
         row["scaler"] = scaler.loc[d]
+        row["run_time"] = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ")
+        row["catch_up"] = bool(d < closes.index[-1])
+        if DAILY_LOG.exists() and list(pd.read_csv(DAILY_LOG, nrows=0).columns) != list(row):
+            raise SystemExit(f"{DAILY_LOG} columns don't match this version of the script. Stopping.")
         append(DAILY_LOG, pd.DataFrame([row]))
         if len(fills):
             append(FILLS_LOG, fills)
         print(f"{d:%Y-%m-%d}  equity ${new_eq:,.2f}  day {row['ret']:+.2%}  gross {row['gross']:.2f}x  "
-              f"scaler {row['scaler']:.2f}  trades {row['n_trades']} ({row['small_orders']} below ${MIN_ORDER:.0f})")
+              f"scaler {row['scaler']:.2f}  trades {row['n_trades']} ({row['small_orders']} below ${MIN_ORDER:.0f})"
+              + ("  [catch-up]" if row["catch_up"] else ""))
         equity, last_day, done = new_eq, d, done + 1
 
     if done == 0 and state is not None:
