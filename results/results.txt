@@ -1,0 +1,43 @@
+Data through 2025-10-13. Holdout from 2025-10-14 untouched.
+Variants tried: 16
+
+=== LONG/SHORT ===
+Walk-forward picks (settings chosen on past data only):
+  2019: picked fast (10,20,40), volwin 20  | train Sharpe  1.50  test Sharpe  1.24
+  2020: picked fast (10,20,40), volwin 20  | train Sharpe  1.37  test Sharpe  2.05
+  2021: picked fast (10,20,40), volwin 20  | train Sharpe  1.60  test Sharpe  1.87
+  2022: picked fast (10,20,40), volwin 20  | train Sharpe  1.66  test Sharpe -0.01
+  2023: picked fast (10,20,40), volwin 20  | train Sharpe  1.36  test Sharpe  1.26
+  2024: picked fast (10,20,40), volwin 20  | train Sharpe  1.34  test Sharpe  0.30
+  2025: picked fast (10,20,40), volwin 20  | train Sharpe  1.20  test Sharpe -0.19
+
+OOS 2019-01-01 to 2025-10-13
+  Walk-forward (selected)                CAGR   22.7%  Vol 23.0%  Sharpe  1.00  MaxDD  -27.6%  Calmar  0.82
+  Fixed 'all' blend, no selection        CAGR   17.1%  Vol 20.0%  Sharpe  0.89  MaxDD  -24.1%  Calmar  0.71  Turnover  9.8x/yr
+  Fixed blend: avg gross exposure 0.26x, long 56% / short 33% of days, fee+slip drag 0.7%/yr
+  Deflated Sharpe prob (WF, 16 trials): 0.98
+
+=== LONG/FLAT ===
+Walk-forward picks (settings chosen on past data only):
+  2019: picked fast (10,20,40), volwin 20  | train Sharpe -0.43  test Sharpe  0.91
+  2020: picked med (20,60,120), volwin 20  | train Sharpe  0.77  test Sharpe  2.95
+  2021: picked all (10..240), volwin 20  | train Sharpe  1.67  test Sharpe  1.16
+  2022: picked slow (60,120,240), volwin 20  | train Sharpe  1.53  test Sharpe -1.63
+  2023: picked slow (60,120,240), volwin 20  | train Sharpe  1.28  test Sharpe  1.43
+  2024: picked slow (60,120,240), volwin 60  | train Sharpe  1.34  test Sharpe  0.58
+  2025: picked all (10..240), volwin 20  | train Sharpe  1.28  test Sharpe -0.72
+
+OOS 2019-01-01 to 2025-10-13
+  Walk-forward (selected)                CAGR   18.7%  Vol 19.1%  Sharpe  1.00  MaxDD  -24.6%  Calmar  0.76
+  Fixed 'all' blend, no selection        CAGR   20.8%  Vol 16.6%  Sharpe  1.22  MaxDD  -16.7%  Calmar  1.24  Turnover  5.2x/yr
+  Fixed blend: avg gross exposure 0.20x, long 91% / short 0% of days, fee+slip drag 0.4%/yr
+  Deflated Sharpe prob (WF, 16 trials): 0.98
+
+=== BENCHMARKS (same OOS window) ===
+  BTC buy & hold (no funding)            CAGR   65.9%  Vol 63.4%  Sharpe  1.12  MaxDD  -76.6%  Calmar  0.86
+  Always-long basket, same vol targeting CAGR   40.2%  Vol 33.4%  Sharpe  1.18  MaxDD  -49.1%  Calmar  0.82
+
+=== PARAMETER NEIGHBOURHOOD (single lookback, volwin 20, 2018 to holdout) ===
+Lookback     10    20    30    40    50    60    70    80    90   100   110   120   130   140   150   160   170   180   190   200   210   220   230   240   250
+L/S        0.92  0.76  1.03  0.95  0.65  0.88  0.57  0.42  0.47  0.55  0.51  0.68  0.64  0.35  0.37  0.33  0.39  0.45  0.28  0.30  0.36  0.29  0.55  0.67  0.58
+L/F        1.12  0.92  1.04  1.05  0.78  0.90  0.76  0.71  0.73  0.80  0.77  0.94  0.89  0.71  0.69  0.72  0.75  0.77  0.75  0.64  0.72  0.71  0.87  0.90  0.85

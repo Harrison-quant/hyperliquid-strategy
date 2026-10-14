@@ -1,0 +1,21 @@
+HOLDOUT 2025-10-15 to 2026-10-13 (364 days), HL prices + HL funding
+  Trend v1 long/flat (frozen)            CAGR    0.3%  Vol  5.5%  Sharpe  0.09  MaxDD   -3.5%  Calmar  0.10  Turnover  2.4x/yr
+  Always-long basket, same vol targeting CAGR  -24.6%  Vol 34.4%  Sharpe -0.65  MaxDD  -43.9%  Calmar -0.56
+  BTC buy & hold (no funding)            CAGR  -26.5%  Vol 44.1%  Sharpe -0.48  MaxDD  -48.9%  Calmar -0.54
+
+Avg gross exposure 0.05x, invested 18% of days, funding paid 0.45%, trades 17
+
+Monthly returns (trend / always-long / BTC):
+  2025-10     0.0%    -3.7%    -3.0%
+  2025-11     0.0%   -14.9%   -17.6%
+  2025-12     0.0%    -2.3%    -3.0%
+  2026-01    -1.9%    -9.3%   -10.2%
+  2026-02     0.0%   -11.1%   -15.0%
+  2026-03     0.0%     2.3%     2.0%
+  2026-04     0.0%     3.4%    11.8%
+  2026-05     0.0%    -4.2%    -3.5%
+  2026-06     0.0%   -11.9%   -20.4%
+  2026-07     0.0%     4.8%     7.3%
+  2026-08     3.9%    22.3%    25.0%
+  2026-09     0.1%     5.9%     6.4%
+  2026-10    -1.7%    -3.6%    -0.6%

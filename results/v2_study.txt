@@ -1,0 +1,26 @@
+PRE-HOLDOUT 2019-01-01 to 2025-10-13, Binance prices, costs + funding included
+
+  v1 (absolute 10% threshold)            CAGR   20.8%  Vol 16.6%  Sharpe  1.22  MaxDD  -16.7%  Calmar  1.24  Turnover  5.2x/yr
+      gross exposure 0.20x, invested 94% of days, trades/yr 35, fee+slip drag 0.39%/yr
+  v2 (25% of position, 2% floor)         CAGR   25.6%  Vol 16.9%  Sharpe  1.43  MaxDD  -20.1%  Calmar  1.27  Turnover 12.5x/yr
+      gross exposure 0.19x, invested 66% of days, trades/yr 134, fee+slip drag 0.93%/yr
+  No threshold (trade every day)         CAGR   26.1%  Vol 16.8%  Sharpe  1.46  MaxDD  -20.0%  Calmar  1.30  Turnover 13.9x/yr
+      gross exposure 0.19x, invested 66% of days, trades/yr 251, fee+slip drag 1.04%/yr
+  Always-long basket, same vol targeting CAGR   33.3%  Vol 33.2%  Sharpe  1.03  MaxDD  -54.6%  Calmar  0.61
+
+Robustness grid, v2 Sharpe (rows rel, cols floor). Want a flat plateau:
+   rel   mn=0.01  mn=0.02  mn=0.05
+  0.10      1.46     1.46     1.42
+  0.25      1.44     1.43     1.43
+  0.50      1.40     1.40     1.46
+
+By year (CAGR / Sharpe):   v1                v2                always-long
+  2019                     18.8% /  1.11    23.5% /  1.36    22.9% /  0.82
+  2020                     73.5% /  3.05    68.5% /  2.88    75.4% /  1.73
+  2021                     20.7% /  1.16    50.0% /  2.02   106.2% /  2.35
+  2022                     -7.6% / -1.08    -3.6% / -0.94   -47.3% / -1.74
+  2023                     37.9% /  1.76    35.2% /  1.71    96.8% /  2.29
+  2024                     22.4% /  1.15    18.2% /  0.98    37.9% /  1.16
+  2025                     -9.5% / -0.72    -3.3% / -0.17    13.7% /  0.55
+
+Deflated Sharpe prob for v2 (counting 27 variants tried so far): 1.00

@@ -1,0 +1,27 @@
+PRE-HOLDOUT 2019-01-01 to 2025-10-13, BTC/ETH/SOL, target vol 30%
+
+  v2 (no strategy-level scaling)         CAGR   25.6%  Vol 16.9%  Sharpe  1.43  MaxDD  -20.1%  Calmar  1.27  Turnover 12.5x/yr
+      gross exposure 0.19x avg, 0.83x max
+  v3 (365d window, 3x cap)               CAGR   56.4%  Vol 34.3%  Sharpe  1.48  MaxDD  -32.3%  Calmar  1.75  Turnover 25.9x/yr
+      gross exposure 0.38x avg, 1.97x max, scaler 2.03 avg, at cap 17% of days, per-coin cap hit 0% of days
+      rolling 1y realised vol: min 8%, median 32%, max 47%
+
+Robustness (Sharpe / Vol / MaxDD):
+  window 180d cap 2x    1.45 / 28.1% / -25.7%
+  window 180d cap 3x    1.52 / 33.8% / -27.3%
+  window 180d cap 4x    1.53 / 36.1% / -27.8%
+  window 365d cap 2x    1.46 / 29.4% / -26.7%
+  window 365d cap 3x    1.48 / 34.3% / -32.3%
+  window 365d cap 4x    1.48 / 36.7% / -34.4%
+  window 730d cap 2x    1.48 / 30.9% / -33.1%
+  window 730d cap 3x    1.50 / 36.0% / -33.3%
+  window 730d cap 4x    1.51 / 38.1% / -34.1%
+
+By year (CAGR / Vol / MaxDD), v3:
+  2019     80.9% / 43.9% / -25.8%
+  2020    193.9% / 39.6% / -14.9%
+  2021     77.0% / 29.1% / -13.5%
+  2022     -9.2% /  8.4% / -13.0%
+  2023     93.9% / 45.9% / -32.3%
+  2024     29.1% / 27.7% / -26.7%
+  2025     -3.6% / 29.2% / -19.4%

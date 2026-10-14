@@ -1,0 +1,24 @@
+# Market data (re-download with fetch_data.py, fetch_binance.py, fetch_universe.py)
+data/*.csv
+
+# Secrets / API keys
+.env
+.env.*
+*.key
+*.pem
+secrets*
+config.local.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
