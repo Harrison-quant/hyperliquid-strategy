@@ -11,15 +11,15 @@ not financial advice.
 
 ## Results at a glance
 
-![Holdout year: strategy vs holding](results/holdout.png)
+![Holdout year: v1 strategy vs holding](results/holdout.png)
 
 The chart is the one-year holdout (Oct 2025 to Oct 2026): data I locked away during
-development and ran exactly once. The market fell about 26%; the strategy sat mostly in cash
-and finished flat.
+development and ran exactly once, on v1, the first frozen version, before the later
+refinements. The market fell about 26%; the strategy sat mostly in cash and finished flat.
 
 | Test | Strategy | Holding |
 |---|---|---|
-| Holdout year, BTC/ETH/SOL (run once) | +0.3%, max DD -3.5% | BTC -26.5%, max DD -48.9% |
+| Holdout year, v1 on BTC/ETH/SOL (run once) | +0.3%, max DD -3.5% | BTC -26.5%, max DD -48.9% |
 | 10 coins never used in development, 2019-2025 | Sharpe 1.32, max DD -13.5% | Sharpe 1.03, max DD -44.6% |
 | Same 10 coins, holdout year | -3.5%, max DD -4.9% | -19.9%, max DD -40.5% |
 | Final v3, all 13 coins, 2019-2025 | Sharpe 1.34, vol 32%, max DD -35% | |
